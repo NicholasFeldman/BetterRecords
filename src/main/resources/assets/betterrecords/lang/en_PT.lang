@@ -1,0 +1,88 @@
+#X-Generator: crowdin.com
+# MISC
+itemGroup.betterrecords=Better Records
+betterrecords.version.newAvailable=A new version of BetterRecords is available!
+
+# Items & Blocks
+## Items
+item.betterrecords=multirecord.desc.shuffle=Shuffle Enabled
+
+
+### Item Descriptions
+item.betterercords=record.desc.repeat=Repeat Enabled
+
+
+## Blocks
+tile.betterrecords=laser.msg.decrease=Laser length decreased to %d
+
+
+
+### Laser messages
+
+# GUI
+## Shared GUI Strings
+gui.betterrecords.label.name=Name
+gui.betterrecords.label.url=URL
+gui.betterrecords.status.validating=Validating...
+
+gui.betterrecords.status.noName=Please insert a name
+gui.betterrecords.status.nameTooShort=Name is not long enough
+gui.betterrecords.status.noUrl=Please insert a URL
+gui.betterrecords.status.urlUnavailable=URL unavailable (Does it exist?)
+gui.betterrecords.status.invalidUrl=Invalid URL
+gui.betterrecords.status.ioException=IO Exception
+
+## Record Etcher
+gui.betterrecords.recordetcher.etch=Etch
+gui.betterrecords.recordetcher.ready=Ready to Etch!
+gui.betterrecords.recordetcher.status.noRecord=No record to etch
+gui.betterrecords.recordetcher.status.notBlank=Not a blank record
+gui.betterrecords.recordetcher.status.fileTooBig=Max file size is %dmb
+gui.betterrecords.recordetcher.status.invalidFile=Invalid file
+gui.betterrecords.recordetcher.status.multiplayer=Local files are singleplayer only
+gui.betterrecords.recordetcher.status.encodingNotSupported=%s is not supported
+
+## Frequency Tuner
+gui.betterrecords.frequencytuner.tune=Tune
+gui.betterrecords.frequencytuner.ready=Tuner ready!
+gui.betterrecords.frequencytuner.status.noCrystal=No crystal to tune
+gui.betterrecords.frequencytuner.status.notBlank=Crystal already tuned
+gui.betterrecords.frequencytuner.status.invalidUrl=Invalid Icy Stream URL
+
+## Disclaimer
+gui.betterrecords.disclaimer.title=Better Records Disclaimer
+gui.betterrecords.disclaimer.warning=WARNING: Parts of this mod make use of flashing lights and images. Consult a parent or guardian before continuing. I am not responsible for anything that may occur while using this mod.
+gui.betterrecords.disclaimer.flashmode.none=None
+gui.betterrecords.disclaimer.flashmode.none.line1=No flashing lights/images
+gui.betterrecords.disclaimer.flashmode.low=Low
+gui.betterrecords.disclaimer.flashmode.low.line1=Some flashing lights/images
+gui.betterrecords.disclaimer.flashmode.norm=Normal
+gui.betterrecords.disclaimer.flashmode.norm.line1=Flashing lights/images
+gui.betterrecords.disclaimer.flashmode.rave=RAVE
+gui.betterrecords.disclaimer.flashmode.rave.line1=For the truly daring.
+gui.betterrecords.disclaimer.flashmode.rave.line2=Way too much flashy stuff
+gui.betterrecords.disclaimer.flashmode.rave.line3=which makes the game almost
+gui.betterrecords.disclaimer.flashmode.rave.line4=unplayable at times.
+gui.betterrecords.disclaimer.flashmode.rave.line5=But it looks awesome.
+
+# Overlay
+betterrecords.overlay.downloading=Downloading: %s
+betterrecords.overlay.nowplaying=Now Playing: %s
+betterrecords.overlay.error.pleaseWait=Error: Please wait for song to finish downloading...
+betterrecords.overlay.error.cantReadStream=Error: Could not read stream.
+betterrecords.overlay.error.cantReadFile=Error: Could not read file.
+
+# Config
+betterrecords.config.title=BetterRecords Config
+betterrecords.general.maxspeakerradius=Max Speaker Radius
+
+betterrecords.general.client=Client
+betterrecords.general.client.downloadsongs=Download Songs
+betterrecords.general.client.devmode=Dev Mode
+betterrecords.general.client.downloadmax=Download Max
+betterrecords.general.client.playwhiledownloading=Play While Downloading
+betterrecords.general.client.streambuffer=Stream Buffer
+betterrecords.general.client.streamradio=Stream Radio
+betterrecords.general.client.flashmode=Flash Mode
+betterrecords.general.client.loaddefaultlibraries=Load Default Libraries
+
