@@ -128,3 +128,9 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
