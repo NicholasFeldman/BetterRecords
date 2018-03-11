@@ -20,7 +20,9 @@ object ClientRenderHandler {
 
     var strobeLinger = 0f
 
+    var showDownloading = false
     var nowDownloading: String? = null
+    var downloadPercent = 0F
 
     @JvmStatic
     @SubscribeEvent
@@ -50,7 +52,7 @@ object ClientRenderHandler {
                 }
                 strobeLinger -= if (ModConfig.client.flashMode < 3) 0.01f else 0.2f
             }
-            if (FileDownloader.isDownloading) {
+            if (showDownloading) {
                 glMatrix {
                     GL11.glDisable(GL11.GL_TEXTURE_2D)
                     GL11.glTranslatef((width / 2 - 50).toFloat(), (height - height / 4 + 26).toFloat(), 0f)
@@ -66,16 +68,16 @@ object ClientRenderHandler {
 
                     GL11.glBegin(GL11.GL_QUADS)
                     GL11.glColor4f(1f, 1f, 1f, .5f)
-                    GL11.glVertex2f(FileDownloader.downloadPercent * 100f, 0f)
+                    GL11.glVertex2f(downloadPercent * 100f, 0f)
                     GL11.glVertex2f(0f, 0f)
                     GL11.glVertex2f(0f, 4f)
-                    GL11.glVertex2f(FileDownloader.downloadPercent * 100f, 4f)
+                    GL11.glVertex2f(downloadPercent * 100f, 4f)
                     GL11.glEnd()
 
                     GL11.glDisable(GL11.GL_BLEND)
                     GL11.glEnable(GL11.GL_TEXTURE_2D)
                 }
-                fontRenderer.drawStringWithShadow(I18n.format("betterrecords.overlay.downloading", FileDownloader.nowDownloading), (width / 2 - fontRenderer.getStringWidth(I18n.format("betterrecords.overlay.downloading", FileDownloader.nowDownloading)) / 2).toFloat(), (height - height / 4 + 15).toFloat(), 0xFFFF33)
+                fontRenderer.drawStringWithShadow(I18n.format("betterrecords.overlay.downloading", nowDownloading), (width / 2 - fontRenderer.getStringWidth(I18n.format("betterrecords.overlay.downloading", nowDownloading)) / 2).toFloat(), (height - height / 4 + 15).toFloat(), 0xFFFF33)
             }
             if (SoundHandler.nowPlaying != "") {
                 if (SoundHandler.nowPlaying.startsWith("Error:")) {

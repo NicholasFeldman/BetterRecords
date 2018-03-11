@@ -1,5 +1,6 @@
 package com.codingforcookies.betterrecords.client.sound
 
+import com.codingforcookies.betterrecords.client.handler.ClientRenderHandler
 import com.codingforcookies.betterrecords.util.downloadAsync
 import net.minecraft.client.Minecraft
 import net.minecraft.util.math.BlockPos
@@ -14,9 +15,18 @@ object SoundPlayer {
 
     fun playSound(pos: BlockPos, dimension: Int, radius: Float, sounds: List<Sound>) {
 
+        ClientRenderHandler.nowDownloading = sounds.first().local
+        ClientRenderHandler.showDownloading = true
         downloadAsync(URL(sounds.first().url), File(downloadFolder, FilenameUtils.getName(sounds.first().url)),
+                update = { curr, total ->
+                    ClientRenderHandler.downloadPercent = (curr / total).toFloat()
+                },
                 success = {
+                    ClientRenderHandler.showDownloading = false
                     playFile(File(downloadFolder, FilenameUtils.getName(sounds.first().url)))
+                },
+                failure = {
+                    ClientRenderHandler.showDownloading = false
                 }
         )
     }

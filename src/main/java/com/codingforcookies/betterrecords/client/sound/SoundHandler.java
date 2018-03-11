@@ -4,6 +4,7 @@ import com.codingforcookies.betterrecords.ModConfig;
 import com.codingforcookies.betterrecords.api.connection.RecordConnection;
 import com.codingforcookies.betterrecords.api.record.IRecordAmplitude;
 import com.codingforcookies.betterrecords.api.wire.IRecordWireHome;
+import com.codingforcookies.betterrecords.client.handler.ClientRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.tileentity.TileEntity;
@@ -70,7 +71,7 @@ public class SoundHandler{
             for(int i = songIndex; i < sounds.size(); i++){
                 if(!soundList.containsKey(sounds.get(i).name)) {
                     if(ModConfig.client.downloadSongs) {
-                        if(FileDownloader.isDownloading) {
+                        if(ClientRenderHandler.INSTANCE.getShowDownloading()) {
                             System.err.println("Song downloading... Please wait...");
                             nowPlaying = I18n.format("betterrecords.overlay.error.pleaseWait");
                             nowPlayingEnd = System.currentTimeMillis() + 5000;

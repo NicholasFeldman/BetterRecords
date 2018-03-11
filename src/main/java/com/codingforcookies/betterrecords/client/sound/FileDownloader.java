@@ -10,18 +10,13 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class FileDownloader {
-    public static String nowDownloading = "";
-    public static float downloadPercent = 0F;
-    public static boolean isDownloading = false;
 
     public static boolean downloadFile(File saveLoc, final SoundManager manager, final int songIndex) {
-        if(isDownloading)
-            return false;
         Sound sound = manager.songs.get(songIndex);
         return downloadFile(sound.name, sound.url, sound.local, saveLoc, new DownloadInfo() {
             private boolean started = false;
             public void onDownloading(String local, float percent) {
-                if(songIndex == 0 && ModConfig.client.playWhileDownloading && !started && downloadPercent > 0.05F) {
+                if(songIndex == 0 && ModConfig.client.playWhileDownloading && !started) {
                     started = true;
                     SoundHandler.playSound(manager, -1);
                 }
@@ -42,9 +37,6 @@ public class FileDownloader {
     private static boolean downloadFile(String name, String urlLocation, String localName, File saveLoc, DownloadInfo dwnloadNfo) {
         urlLocation = urlLocation.replace(" ", "%20");
         System.err.println("Downloading " + name + " from " + urlLocation + "...");
-        isDownloading = true;
-        nowDownloading = localName;
-        downloadPercent = 0F;
 
         BufferedInputStream in = null;
         FileOutputStream out = null;
@@ -71,17 +63,9 @@ public class FileDownloader {
             while((count = in.read(data, 0, 1024)) != -1) {
                 out.write(data, 0, count);
                 sumCount += count;
-                isDownloading = true;
-                nowDownloading = localName;
-                if(size > 0)
-                    downloadPercent = sumCount / size;
 
-                if(dwnloadNfo != null)
-                    dwnloadNfo.onDownloading(localName, downloadPercent);
             }
 
-            isDownloading = false;
-            nowDownloading = "";
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,8 +89,6 @@ public class FileDownloader {
                 }
         }
 
-        isDownloading = false;
-        nowDownloading = "";
         return false;
     }
 
