@@ -39,10 +39,6 @@ public class FileDownloader {
         });
     }
 
-    public static boolean downloadFile(String name, String urlLocation, String localName, File saveLoc) {
-        return downloadFile(name, urlLocation, localName, saveLoc, null);
-    }
-
     private static boolean downloadFile(String name, String urlLocation, String localName, File saveLoc, DownloadInfo dwnloadNfo) {
         urlLocation = urlLocation.replace(" ", "%20");
         System.err.println("Downloading " + name + " from " + urlLocation + "...");

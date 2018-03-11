@@ -20,6 +20,8 @@ object ClientRenderHandler {
 
     var strobeLinger = 0f
 
+    var nowDownloading: String? = null
+
     @JvmStatic
     @SubscribeEvent
     fun onClientRender(event: TickEvent.RenderTickEvent) {
