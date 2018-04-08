@@ -92,7 +92,7 @@ class PacketRecordPlay @JvmOverloads constructor(
 
             with(message) {
                 if (playRadius > 100000 || Math.abs(Math.sqrt(Math.pow(player.posX - pos.x, 2.0) + Math.pow(player.posY - pos.y, 2.0) + Math.pow(player.posZ - pos.z, 2.0))).toFloat() < playRadius) {
-                    SoundPlayer.playSound(pos, dimension, playRadius, sounds)
+                    SoundPlayer.playSound(pos, dimension, playRadius, sounds.first())
                 }
             }
 

@@ -13,17 +13,17 @@ object SoundPlayer {
 
     private val downloadFolder = File(Minecraft.getMinecraft().mcDataDir, "betterrecords/cache")
 
-    fun playSound(pos: BlockPos, dimension: Int, radius: Float, sounds: List<Sound>) {
+    fun playSound(pos: BlockPos, dimension: Int, radius: Float, sound: Sound) {
 
-        ClientRenderHandler.nowDownloading = sounds.first().local
+        ClientRenderHandler.nowDownloading = sound.local
         ClientRenderHandler.showDownloading = true
-        downloadAsync(URL(sounds.first().url), File(downloadFolder, FilenameUtils.getName(sounds.first().url)),
+        downloadAsync(URL(sound.url), File(downloadFolder, FilenameUtils.getName(sound.url)),
                 update = { curr, total ->
                     ClientRenderHandler.downloadPercent = (curr / total).toFloat()
                 },
                 success = {
                     ClientRenderHandler.showDownloading = false
-                    playFile(File(downloadFolder, FilenameUtils.getName(sounds.first().url)))
+                    playFile(File(downloadFolder, FilenameUtils.getName(sound.url)))
                 },
                 failure = {
                     ClientRenderHandler.showDownloading = false
