@@ -1,6 +1,7 @@
 package com.codingforcookies.betterrecords.network
 
 import com.codingforcookies.betterrecords.client.sound.SoundHandler
+import com.codingforcookies.betterrecords.client.sound.SoundPlayer
 import io.netty.buffer.ByteBuf
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
@@ -30,7 +31,7 @@ class PacketSoundStop @JvmOverloads constructor(
 
         override fun onMessage(message: PacketSoundStop, ctx: MessageContext): IMessage? {
             with(message) {
-                SoundHandler.stopPlaying(pos, dimension)
+                SoundPlayer.stopPlayingAt(pos, dimension)
             }
 
             return null

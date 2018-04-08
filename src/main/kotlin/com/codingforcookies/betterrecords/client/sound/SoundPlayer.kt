@@ -1,5 +1,6 @@
 package com.codingforcookies.betterrecords.client.sound
 
+import com.codingforcookies.betterrecords.BetterRecords
 import com.codingforcookies.betterrecords.client.handler.ClientRenderHandler
 import com.codingforcookies.betterrecords.util.downloadAsync
 import net.minecraft.client.Minecraft
@@ -13,7 +14,10 @@ object SoundPlayer {
 
     private val downloadFolder = File(Minecraft.getMinecraft().mcDataDir, "betterrecords/cache")
 
+    private val playingSounds = hashMapOf<Pair<BlockPos, Int>, Sound>()
+
     fun playSound(pos: BlockPos, dimension: Int, radius: Float, sound: Sound) {
+        BetterRecords.logger.info("Playing sound at $pos in Dimension $dimension")
 
         ClientRenderHandler.nowDownloading = sound.local
         ClientRenderHandler.showDownloading = true
@@ -23,7 +27,8 @@ object SoundPlayer {
                 },
                 success = {
                     ClientRenderHandler.showDownloading = false
-                    playFile(File(downloadFolder, FilenameUtils.getName(sound.url)))
+                    playingSounds[Pair(pos, dimension)] = sound
+                    playFile(File(downloadFolder, FilenameUtils.getName(sound.url)), pos, dimension)
                 },
                 failure = {
                     ClientRenderHandler.showDownloading = false
@@ -31,7 +36,15 @@ object SoundPlayer {
         )
     }
 
-    private fun playFile(file: File) {
+    fun isSoundPlayingAt(pos: BlockPos, dimension: Int) =
+            playingSounds.containsKey(Pair(pos, dimension))
+
+    fun stopPlayingAt(pos: BlockPos, dimension: Int) {
+        BetterRecords.logger.info("Stopping sound at $pos in Dimension $dimension")
+        playingSounds.remove(Pair(pos, dimension))
+    }
+
+    private fun playFile(file: File, pos: BlockPos, dimension: Int) {
         val ain = AudioSystem.getAudioInputStream(file)
         val baseFormat = ain.format
         val decodedFormat = AudioFormat(
@@ -44,11 +57,11 @@ object SoundPlayer {
         )
 
         val din = AudioSystem.getAudioInputStream(decodedFormat, ain)
-        rawPlay(decodedFormat, din)
+        rawPlay(decodedFormat, din, pos, dimension)
         ain.close()
     }
 
-    private fun rawPlay(targetFormat: AudioFormat, din: AudioInputStream) {
+    private fun rawPlay(targetFormat: AudioFormat, din: AudioInputStream, pos: BlockPos, dimension: Int) {
         val line = getLine(targetFormat)
 
         line?.let {
@@ -57,10 +70,12 @@ object SoundPlayer {
             val buffer = ByteArray(4096)
             var bytes = din.read(buffer)
 
-            while (bytes >= 0) {
+            while (bytes >= 0 && isSoundPlayingAt(pos, dimension)) {
                 line.write(buffer, 0, bytes)
                 bytes = din.read(buffer)
             }
+
+            stopPlayingAt(pos, dimension)
 
             line.drain()
             line.stop()
