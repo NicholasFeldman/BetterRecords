@@ -2,12 +2,14 @@ package com.codingforcookies.betterrecords.client.handler
 
 import com.codingforcookies.betterrecords.ID
 import com.codingforcookies.betterrecords.ModConfig
-import com.codingforcookies.betterrecords.client.sound.SoundHandler
+import com.codingforcookies.betterrecords.api.wire.IRecordWireHome
+import com.codingforcookies.betterrecords.client.sound.SoundPlayer
 import com.codingforcookies.betterrecords.extensions.glMatrix
 import com.codingforcookies.betterrecords.item.ItemWire
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.SoundCategory
+import net.minecraft.util.math.BlockPos
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.Mod
@@ -18,7 +20,6 @@ import org.lwjgl.opengl.GL11
 @Mod.EventBusSubscriber(modid = ID, value = [Side.CLIENT])
 object RenderEventHandler {
 
-    @JvmStatic
     @SubscribeEvent
     fun onRenderEvent(event: RenderWorldLastEvent) {
         val mc = Minecraft.getMinecraft()
@@ -47,8 +48,9 @@ object RenderEventHandler {
 
                     if (ModConfig.client.devMode && ItemWire.connection!!.fromHome) {
                         // TODO: Clean up this
-                        if (SoundHandler.soundPlaying.containsKey(ItemWire.connection!!.x1.toString() + "," + ItemWire.connection!!.y1 + "," + ItemWire.connection!!.z1 + "," + mc.world.provider.dimension)) {
-                            val radius = SoundHandler.soundPlaying[ItemWire.connection!!.x1.toString() + "," + ItemWire.connection!!.y1 + "," + ItemWire.connection!!.z1 + "," + mc.world.provider.dimension]!!.currentSong!!.playRadius
+                        val pos = BlockPos(ItemWire.connection!!.x1, ItemWire.connection!!.y1, ItemWire.connection!!.z1)
+                        if (SoundPlayer.isSoundPlayingAt(pos, mc.world.provider.dimension)) {
+                            val radius = (mc.world.getTileEntity(pos) as IRecordWireHome).songRadius
 
                             GlStateManager.disableCull()
                             GlStateManager.enableBlend()

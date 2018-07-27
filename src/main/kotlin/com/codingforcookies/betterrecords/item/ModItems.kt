@@ -15,7 +15,6 @@ object ModItems {
     val itemWire: ModItem = ItemWire("wire")
     val itemWireCutters: ModItem = ItemWireCutter("wirecutters")
 
-    @JvmStatic
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(

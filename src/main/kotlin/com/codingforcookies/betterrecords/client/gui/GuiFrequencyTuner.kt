@@ -12,6 +12,7 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.util.ResourceLocation
 import org.apache.commons.io.FilenameUtils
+import java.net.MalformedURLException
 import java.net.URL
 
 class GuiFrequencyTuner(inventoryPlayer: InventoryPlayer, val tileEntity: TileFrequencyTuner) : GuiContainer(ContainerFrequencyTuner(inventoryPlayer, tileEntity)) {
@@ -112,16 +113,20 @@ class GuiFrequencyTuner(inventoryPlayer: InventoryPlayer, val tileEntity: TileFr
             if (checkURLTime < System.currentTimeMillis()) {
                 checkURLTime = 0
 
-                val connection = IcyURLConnection(URL(urlField.text.replace(" ", "%20"))).apply {
-                    instanceFollowRedirects = true
-                    requestMethod = "HEAD"
-                    connect()
-                }
+                try {
+                    val connection = IcyURLConnection(URL(urlField.text.replace(" ", "%20"))).apply {
+                        instanceFollowRedirects = true
+                        requestMethod = "HEAD"
+                        connect()
+                    }
 
-                error = if (connection.responseCode == 200) {
-                    I18n.format("gui.betterrecords.frequencytuner.ready")
-                } else {
-                    I18n.format("gui.betterrecords.status.urlUnavailable")
+                    error = if (connection.responseCode == 200) {
+                        I18n.format("gui.betterrecords.frequencytuner.ready")
+                    } else {
+                        I18n.format("gui.betterrecords.status.urlUnavailable")
+                    }
+                } catch(e: MalformedURLException) {
+                    error = I18n.format("gui.betterrecords.frequencytuner.status.invalidUrl")
                 }
 
                 checkedURL = true

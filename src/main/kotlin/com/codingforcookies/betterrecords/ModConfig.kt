@@ -65,13 +65,12 @@ object ModConfig {
         ConfigManager.sync(ID, Config.Type.INSTANCE)
     }
 
-    @Mod.EventBusSubscriber
+    @Mod.EventBusSubscriber(modid = ID)
     private object EventHandler {
 
         /**
          * Inject the new values and save to the config file when the config has been changed from the GUI.
          */
-        @JvmStatic
         @SubscribeEvent
         fun onConfigChanged(event: ConfigChangedEvent.OnConfigChangedEvent) {
             if (event.modID == ID) {

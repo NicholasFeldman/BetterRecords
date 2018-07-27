@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 @Mod.EventBusSubscriber(modid = ID)
 object CrafingRecipes {
 
-    @JvmStatic
     @SubscribeEvent
     fun registerRecipes(event: RegistryEvent.Register<IRecipe>) {
         event.registry.registerAll(

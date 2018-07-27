@@ -2,9 +2,7 @@ package com.codingforcookies.betterrecords.client
 
 import com.codingforcookies.betterrecords.CommonProxy
 import com.codingforcookies.betterrecords.client.handler.ClientRenderHandler
-import com.codingforcookies.betterrecords.client.handler.ClientTickHandler
 import com.codingforcookies.betterrecords.client.handler.RenderEventHandler
-import com.codingforcookies.betterrecords.client.sound.SoundHandler
 import com.codingforcookies.betterrecords.item.ModItem
 import com.codingforcookies.betterrecords.item.ModItems
 import net.minecraft.client.Minecraft
@@ -24,11 +22,6 @@ class ClientProxy : CommonProxy() {
                 "audio/mpeg", "audio/mpeg; charset=UTF-8",
                 "application/octet-stream",
                 "audio/wav", "audio/x-wav")
-    }
-
-    override fun preInit(event: FMLPreInitializationEvent) {
-        super.preInit(event)
-        SoundHandler.initalize()
     }
 
     override fun init(event: FMLInitializationEvent) {

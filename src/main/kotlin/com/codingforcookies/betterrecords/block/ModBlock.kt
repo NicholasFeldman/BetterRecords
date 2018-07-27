@@ -27,7 +27,7 @@ abstract class ModBlock(material: Material, open val name: String) : BlockContai
      * Set the registry name and creative tab for the block
      */
     init {
-        setRegistryName(name)
+        setRegistryName("betterrecords:$name")
         unlocalizedName = registryName.toString()
 
         setCreativeTab(BetterRecords.creativeTab)

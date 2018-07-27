@@ -11,19 +11,26 @@ import java.net.URL
  * Downloads a resource asynchronously.
  */
 fun downloadAsync(url: URL, target: File,
-                  update: (curr: Long, total: Long) -> Unit = { _, _ -> },
+                  update: (curr: Float, total: Float) -> Unit = { _, _ -> },
                   success: () -> Unit = {},
                   failure: () -> Unit = {}) {
 
     launch {
         val connection = url.openConnection()
-
         val size = connection.contentLength.toLong()
+
+        if (size == target.length()) {
+            success()
+            return@launch
+        }
 
         if (size / 1024 / 1024 > ModConfig.client.downloadMax) {
             failure()
             return@launch
         }
+
+        // Delete the target in case it is broken / A different file in the cache for whatever reason
+        target.delete()
 
         val inputStream = BufferedInputStream(url.openStream())
         val outputStream = FileOutputStream(target)
@@ -34,7 +41,7 @@ fun downloadAsync(url: URL, target: File,
         while (bytes >= 0) {
             outputStream.write(buffer, 0, bytes)
             bytesCopied += bytes
-            update(bytesCopied, size)
+            update(bytesCopied.toFloat(), size.toFloat())
             bytes = inputStream.read(buffer)
         }
 

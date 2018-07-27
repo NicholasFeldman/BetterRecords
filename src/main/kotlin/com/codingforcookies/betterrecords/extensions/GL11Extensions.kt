@@ -2,13 +2,13 @@ package com.codingforcookies.betterrecords.extensions
 
 import net.minecraft.client.renderer.GlStateManager
 
-fun glMatrix(block: () -> Unit) {
+inline fun glMatrix(block: () -> Unit) {
     GlStateManager.pushMatrix()
     block()
     GlStateManager.popMatrix()
 }
 
-fun glVertices(mode: Int, block: () -> Unit) {
+inline fun glVertices(mode: Int, block: () -> Unit) {
     GlStateManager.glBegin(mode)
     block()
     GlStateManager.glEnd()

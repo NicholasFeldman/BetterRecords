@@ -23,7 +23,6 @@ object DisclaimerHandler {
      * We do this by checking if flashMode is -1.
      * If for any reason they set it back to -1, they will be warned again.
      */
-    @JvmStatic
     @SubscribeEvent
     fun onFirstJoin(event: EntityJoinWorldEvent) {
         if (event.entity is EntityPlayer && ModConfig.client.flashMode == -1) {

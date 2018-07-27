@@ -5,13 +5,13 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import java.util.*
 
-fun NBTTagList.forEachTag(action: (NBTTagCompound) -> Unit) {
+inline fun NBTTagList.forEachTag(action: (NBTTagCompound) -> Unit) {
     for (index in 0 until tagCount()) {
         action(getCompoundTagAt(index))
     }
 }
 
-fun NBTTagList.forEachTagIndexed(action: (Int, NBTTagCompound) -> Unit) {
+inline fun NBTTagList.forEachTagIndexed(action: (Int, NBTTagCompound) -> Unit) {
     for (index in 0 until tagCount()) {
         action(index, getCompoundTagAt(index))
     }

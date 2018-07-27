@@ -22,7 +22,6 @@ object ModBlocks {
     val blockLaser = BlockLaser("laser")
     val blockLaserCluster = BlockLaserCluster("lasercluster")
 
-    @JvmStatic
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
         event.registry.registerAll(
@@ -37,7 +36,6 @@ object ModBlocks {
         )
     }
 
-    @JvmStatic
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
         arrayOf<ModBlock>(
@@ -64,7 +62,6 @@ object ModBlocks {
                 }
     }
 
-    @JvmStatic
     @SubscribeEvent
     fun registerModels(event: ModelRegistryEvent) {
         Block.REGISTRY

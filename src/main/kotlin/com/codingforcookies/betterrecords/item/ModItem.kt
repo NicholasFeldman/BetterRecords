@@ -9,7 +9,7 @@ import net.minecraft.item.Item
 open class ModItem(val name: String): Item() {
 
     init {
-        setRegistryName(name)
+        setRegistryName("betterrecords:$name")
         unlocalizedName = registryName.toString()
         creativeTab = BetterRecords.creativeTab
     }

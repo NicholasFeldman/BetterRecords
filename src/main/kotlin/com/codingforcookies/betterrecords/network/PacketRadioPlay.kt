@@ -1,9 +1,12 @@
 package com.codingforcookies.betterrecords.network
 
-import com.codingforcookies.betterrecords.client.sound.SoundHandler
+import com.codingforcookies.betterrecords.api.event.RecordInsertEvent
+import com.codingforcookies.betterrecords.api.sound.Sound
+import com.codingforcookies.betterrecords.client.sound.SoundPlayer
 import io.netty.buffer.ByteBuf
 import net.minecraft.client.Minecraft
 import net.minecraft.util.math.BlockPos
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.network.ByteBufUtils
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
@@ -42,12 +45,8 @@ class PacketRadioPlay @JvmOverloads constructor(
     class Handler : IMessageHandler<PacketRadioPlay, IMessage> {
 
         override fun onMessage(message: PacketRadioPlay, ctx: MessageContext): IMessage? {
-            val player = Minecraft.getMinecraft().player
-
-            with (message) {
-                if (playRadius > 100000 || Math.abs(Math.sqrt(Math.pow(player.posX - pos.x, 2.0) + Math.pow(player.posY - pos.y, 2.0) + Math.pow(player.posZ - pos.z, 2.0))).toFloat() < playRadius) {
-                    SoundHandler.playSoundFromStream(pos, dimension, playRadius, local, url)
-                }
+            with(message) {
+                MinecraftForge.EVENT_BUS.post(RecordInsertEvent(pos, dimension, playRadius, listOf(Sound(url, local))))
             }
 
             return null

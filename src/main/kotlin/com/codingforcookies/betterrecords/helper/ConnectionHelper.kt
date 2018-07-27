@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import java.util.*
+import kotlin.collections.HashMap
 
 // TODO: Create unit tests and refactor methods.
 object ConnectionHelper {
@@ -59,12 +60,12 @@ object ConnectionHelper {
 
     fun unserializeWireSystemInfo(wireSystemInfo: String): HashMap<String, Int> {
         if (wireSystemInfo.trim { it <= ' ' } == "") {
-            return hashMapOf()
+            return HashMap()
         }
 
 
         val wsi = wireSystemInfo.split("]")
-        val ret = hashMapOf<String, Int>()
+        val ret = HashMap<String, Int>()
 
         wsi
                 .map { it.split(",") }

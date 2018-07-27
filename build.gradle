@@ -42,7 +42,7 @@ junitPlatform {
 if (System.getenv('CI') && System.getenv('GIT_BRANCH') != 'master') {
     // We are for sure in jenkins, and not building for
     // release. This is a snapshot build of a branch.
-    version = "$minecraft_version-SNAPSHOT-jenkins-${System.getenv('GIT_BRANCH')}-${System.getenv('BUILD_NUMBER')}".replaceAll("/", "-")
+    version = "$minecraft_version-${System.getenv('BUILD_TAG')}-${System.getenv('GIT_COMMIT')}"
 } else {
     // We might be in jenkins, we might be local.
     // Doesn't matter though.
