@@ -4,7 +4,7 @@ import com.codingforcookies.betterrecords.ID
 import com.codingforcookies.betterrecords.api.event.RadioInsertEvent
 import com.codingforcookies.betterrecords.api.event.RecordInsertEvent
 import com.codingforcookies.betterrecords.api.event.SoundStopEvent
-import com.codingforcookies.betterrecords.client.sound.SoundPlayer
+import com.codingforcookies.betterrecords.client.sound.SoundManager
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -20,7 +20,7 @@ object SoundEventHandler {
         val player = Minecraft.getMinecraft().player
 
         if (playRadius > 100000 || Math.abs(Math.sqrt(Math.pow(player.posX - pos.x, 2.0) + Math.pow(player.posY - pos.y, 2.0) + Math.pow(player.posZ - pos.z, 2.0))).toFloat() < playRadius) {
-            SoundPlayer.playSound(pos, dimension, playRadius, sounds.first())
+            SoundManager.queueSongsAt(pos, dimension, sounds)
         }
 
     }
@@ -28,11 +28,11 @@ object SoundEventHandler {
     @JvmStatic
     @SubscribeEvent
     fun onRadioInserted(event: RadioInsertEvent) {
-        val (pos, dimension, playRadius, sounds) = event
+        val (pos, dimension, playRadius, sound) = event
         val player = Minecraft.getMinecraft().player
 
         if (playRadius > 100000 || Math.abs(Math.sqrt(Math.pow(player.posX - pos.x, 2.0) + Math.pow(player.posY - pos.y, 2.0) + Math.pow(player.posZ - pos.z, 2.0))).toFloat() < playRadius) {
-            SoundPlayer.playSoundFromStream(pos, dimension, playRadius, sounds.first())
+            SoundManager.queueStreamAt(pos, dimension, sound)
         }
     }
 
@@ -41,6 +41,6 @@ object SoundEventHandler {
     fun onSoundStopped(event: SoundStopEvent) {
         val (pos, dimension) = event
 
-        SoundPlayer.stopPlayingAt(pos, dimension)
+        SoundManager.stopQueueAt(pos, dimension)
     }
 }

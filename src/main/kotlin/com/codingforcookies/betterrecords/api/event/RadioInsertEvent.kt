@@ -8,5 +8,5 @@ data class RadioInsertEvent(
         val pos: BlockPos,
         val dimension: Int,
         val playRadius: Float,
-        val sounds: List<Sound>
+        val sound: Sound
 ) : Event()

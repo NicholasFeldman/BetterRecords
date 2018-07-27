@@ -10,23 +10,22 @@ import java.net.URL
 /**
  * Downloads a resource asynchronously.
  */
-fun downloadAsync(url: URL, target: File,
-                  update: (curr: Float, total: Float) -> Unit = { _, _ -> },
-                  success: () -> Unit = {},
-                  failure: () -> Unit = {}) {
+fun downloadFile(url: URL, target: File,
+                 update: (curr: Float, total: Float) -> Unit = { _, _ -> },
+                 success: () -> Unit = {},
+                 failure: () -> Unit = {}) {
 
-    launch {
         val connection = url.openConnection()
         val size = connection.contentLength.toLong()
 
         if (size == target.length()) {
             success()
-            return@launch
+            return
         }
 
         if (size / 1024 / 1024 > ModConfig.client.downloadMax) {
             failure()
-            return@launch
+            return
         }
 
         // Delete the target in case it is broken / A different file in the cache for whatever reason
@@ -49,5 +48,4 @@ fun downloadAsync(url: URL, target: File,
         outputStream.close()
 
         success()
-    }
 }

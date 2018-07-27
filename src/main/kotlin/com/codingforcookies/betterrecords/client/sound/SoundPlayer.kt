@@ -3,7 +3,7 @@ package com.codingforcookies.betterrecords.client.sound
 import com.codingforcookies.betterrecords.BetterRecords
 import com.codingforcookies.betterrecords.api.sound.Sound
 import com.codingforcookies.betterrecords.client.handler.ClientRenderHandler
-import com.codingforcookies.betterrecords.util.downloadAsync
+import com.codingforcookies.betterrecords.util.downloadFile
 import com.codingforcookies.betterrecords.util.getVolumeForPlayerFromBlock
 import kotlinx.coroutines.experimental.launch
 import net.minecraft.client.Minecraft
@@ -20,12 +20,12 @@ object SoundPlayer {
 
     private val playingSounds = HashMap<Pair<BlockPos, Int>, Sound>()
 
-    fun playSound(pos: BlockPos, dimension: Int, radius: Float, sound: Sound) {
+    fun playSound(pos: BlockPos, dimension: Int, sound: Sound) {
         BetterRecords.logger.info("Playing sound at $pos in Dimension $dimension")
 
         ClientRenderHandler.nowDownloading = sound.localName
         ClientRenderHandler.showDownloading = true
-        downloadAsync(URL(sound.url), File(downloadFolder, FilenameUtils.getName(sound.url)),
+        downloadFile(URL(sound.url), File(downloadFolder, FilenameUtils.getName(sound.url)),
                 update = { curr, total ->
                     ClientRenderHandler.downloadPercent = curr / total
                 },
@@ -41,7 +41,7 @@ object SoundPlayer {
         )
     }
 
-    fun playSoundFromStream(pos: BlockPos, dimension: Int, radius: Float, sound: Sound) {
+    fun playSoundFromStream(pos: BlockPos, dimension: Int, sound: Sound) {
         BetterRecords.logger.info("Playing sound from stream at $pos in $dimension")
 
         val urlConn = IcyURLConnection(URL(if (sound.url.startsWith("http")) sound.url else "http://${sound.url}")).apply {
@@ -52,9 +52,7 @@ object SoundPlayer {
 
         playingSounds[Pair(pos, dimension)] = sound
 
-        launch {
-            playStream(urlConn.inputStream, pos, dimension)
-        }
+        playStream(urlConn.inputStream, pos, dimension)
     }
 
     fun isSoundPlayingAt(pos: BlockPos, dimension: Int) =
