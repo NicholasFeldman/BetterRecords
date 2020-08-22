@@ -21,31 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tech.feldman.betterrecords
+package tech.feldman.betterrecords.client.handler
 
-import tech.feldman.betterrecords.handler.GuiHandler
-import tech.feldman.betterrecords.handler.ResumeHandler
-import tech.feldman.betterrecords.library.Libraries
-import tech.feldman.betterrecords.network.PacketHandler
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-import net.minecraftforge.fml.common.network.NetworkRegistry
+import tech.feldman.betterrecords.ID
+import tech.feldman.betterrecords.client.sound.SoundManager
+import net.minecraft.util.math.BlockPos
+import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent
+import net.minecraftforge.fml.relauncher.Side
+import kotlin.concurrent.thread
 
-open class CommonProxy {
-    open fun preInit(event: FMLPreInitializationEvent) {
-        PacketHandler.init()
-    }
+@Mod.EventBusSubscriber(modid = ID, value = [Side.CLIENT])
+object LoggedOutHandler {
 
-    open fun init(event: FMLInitializationEvent) {
-        NetworkRegistry.INSTANCE.registerGuiHandler(tech.feldman.betterrecords.BetterRecords, GuiHandler())
-
-        Libraries.init()
-        MinecraftForge.EVENT_BUS.register(ResumeHandler())
-    }
-
-    open fun postInit(event: FMLPostInitializationEvent) {
-
+    @SubscribeEvent
+    fun loggedOutEvent(event: PlayerLoggedOutEvent) {
+        SoundManager.stopSongs()
     }
 }

@@ -153,7 +153,10 @@ object SoundPlayer {
     }
 
     private fun updateLights(buffer: ByteArray, pos: BlockPos, dimension: Int) {
-        if (Minecraft.getMinecraft().world.provider.dimension != dimension) {
+        if (Minecraft.getMinecraft().world == null ) {
+            return
+        }
+        if ( Minecraft.getMinecraft().world.provider.dimension != dimension) {
             return
         }
 

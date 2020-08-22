@@ -48,6 +48,8 @@ object SoundManager {
     }
 
     fun queueStreamAt(pos: BlockPos, dimension: Int, sound: Sound) {
+        val jobkey = Pair(pos, dimension)
+        if (jobkey in jobs) return
         val job = thread {
             SoundPlayer.playSoundFromStream(pos, dimension, sound)
         }
@@ -56,8 +58,21 @@ object SoundManager {
     }
 
     fun stopQueueAt(pos: BlockPos, dimension: Int) {
+        val jobkey = Pair(pos, dimension)
+        if (jobkey !in jobs) return
         SoundPlayer.stopPlayingAt(pos, dimension)
-        jobs[Pair(pos, dimension)]?.stop()
-        jobs.remove(Pair(pos, dimension))
+        jobs[jobkey]?.stop()
+        jobs.remove(jobkey)
+    }
+
+    fun stopSongs() {
+        with(jobs.iterator()) {
+            forEach() {
+                (jobkey, thread) ->
+                        val pos = jobkey.first
+                        val dimension = jobkey.second
+                        stopQueueAt(pos, dimension)
+            }
+        }
     }
 }
