@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="@LOADER_RANGE@"
+issueTrackerURL="https://github.com/Hemogoblins/BetterRecords/issues"
+license="GPLv3"
+
+[[mods]]
+    modId="betterrecords"
+    version="@VERSION@"
+    displayName="BetterRecords"
+    authors="Hemogoblins"
+    credits=""
+    description='''
+    BetterRecords
+    '''
+    displayURL="https://github.com/Hemogoblins/BetterRecords"
+
+[[dependenices.betterrecords]]
+    modid="forge"
+    mandatory=true
+    versionRange="@FORGE_RANGE@"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependenices.betterrecords]]
+    modid="minecraft"
+    mandatory=true
+    versionRange="@MINECRAFT_RANGE@"
+    ordering="NONE"
+    side="BOTH"

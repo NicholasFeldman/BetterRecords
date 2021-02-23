@@ -1,2 +1,0 @@
-# Add URLs to remote libraries here, one per line.
-# Lines starting with "#" are comments and will not be read.

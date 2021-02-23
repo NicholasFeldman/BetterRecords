@@ -1,24 +1,9 @@
-BetterRecords
-=============
-[![curse badge]][curse] [![discord badge]][discord]
+# BetterRecords
 
-Better Records adds the ability to download your favorite songs
-from the internet directly into your game, for all your friends to hear!
+## FAQ
 
-Modpacks
-========
-You may use this mod in your modpack as long as:
+### Can I Use this in a modpack?
+Yes. You don't need to ask.
 
-* You link back to the [Curse page][curse]
-* You don't make money off of your modpack
-* You do not take credit for making any part of this mod. Give credit where credit is due. (NicholasFeldman & Stumblinbear)
-
-Developing / Compiling
-======================
-1. `gradle [setupDevWorkspace|setupDecompWorkspace] [eclipse|idea]`
-2. `gradle build`
-
-[curse]: https://minecraft.curseforge.com/projects/better-records "Link to Curse"
-[curse badge]: http://cf.way2muchnoise.eu/full_better-records_downloads.svg "Curse Badge"
-[discord]: https://discord.gg/uhQFPUs "Discord Invite Link"
-[discord badge]: https://img.shields.io/discord/392066220259803156.svg?colorB=7289DA "Discord Badge"
+### I want to help!
+Awesome! Please read the Code of Conduct, and Contribution guide in our Github repository.

@@ -1,8 +1,0 @@
-{
-  "parent": "item/generated",
-  "comment": "Layer duplicated as a temporary hack for color",
-  "textures": {
-    "layer0": "betterrecords:items/freqcrystal",
-    "layer1": "betterrecords:items/freqcrystal"
-  }
-}
