@@ -1,16 +1,21 @@
-# Gradle
-/.gradle
-build/
-/run*/
-/classes/
+# Editors
 
-# IDEA
+## IDEA
 .idea/
 *.iml
 *.ipr
 *.iws
 
-# OS
+## VIM
+*.swp
+
+# Gradle
+.gradle/
+build/
+run*/
+classes/
+
+# MacOS
 */.DS_Store
 .DS_Store
 .DS_Store?

@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "betterrecords:items/urlrecord",
-    "layer1": "betterrecords:items/urlrecord_overlay"
-  }
-}
